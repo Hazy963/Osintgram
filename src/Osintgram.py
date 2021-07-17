@@ -335,7 +335,7 @@ class Osintgram:
 
             #////////////////////
             for user in _followers:
-            u = {
+             u = {
                 'id': user['pk'],
                 'username': user['username'],
                 'full_name': user['full_name']
