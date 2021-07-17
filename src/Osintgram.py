@@ -333,6 +333,42 @@ class Osintgram:
             _followers.extend(results.get('users', []))
             next_max_id = results.get('next_max_id')
 
+            #////////////////////
+            for user in _followers:
+            u = {
+                'id': user['pk'],
+                'username': user['username'],
+                'full_name': user['full_name']
+            }
+            followers.append(u)
+
+        t = PrettyTable(['ID', 'Username', 'Full Name'])
+        t.align["ID"] = "l"
+        t.align["Username"] = "l"
+        t.align["Full Name"] = "l"
+
+        json_data = {}
+        followings_list = []
+
+        for node in followers:
+            t.add_row([str(node['id']), node['username'], node['full_name']])
+
+            if self.jsonDump:
+                follow = {
+                    'id': node['id'],
+                    'username': node['username'],
+                    'full_name': node['full_name']
+                }
+                followings_list.append(follow)
+
+        if self.writeFile:
+            file_name = self.output_dir + "/" + self.target + "_followers.txt"
+            file = open(file_name, "w")
+            file.write(str(t))
+            file.close()
+            #///////////
+
+
         print("\n")
             
         for user in _followers:
